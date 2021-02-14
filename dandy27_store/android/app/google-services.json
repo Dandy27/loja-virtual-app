@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "24504974319",
+    "project_id": "dandy-store-27",
+    "storage_bucket": "dandy-store-27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24504974319:android:da03f947763183069a941a",
+        "android_client_info": {
+          "package_name": "br.com.dandy.dandy27_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24504974319-4bpj4oft0tjpvj6ee8ppe4buc8kds4ae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOGXmWZKgGECE8FhDbjHaLDgodSrddo38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24504974319-4bpj4oft0tjpvj6ee8ppe4buc8kds4ae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
