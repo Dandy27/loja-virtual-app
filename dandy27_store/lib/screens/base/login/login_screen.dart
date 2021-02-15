@@ -1,8 +1,10 @@
 import 'package:dandy27_store/helpers/validators.dart';
+import 'package:dandy27_store/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:dandy27_store/models/user_manager.dart';
 
 class LoginScreen extends StatelessWidget {
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
@@ -28,51 +30,56 @@ class LoginScreen extends StatelessWidget {
                   controller: emailController,
                   decoration: InputDecoration(hintText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
-                  autocorrect: false ,
-                  validator: (email){
-                    if(!emailValid(email))
-                      return 'E-mail inválido';
+                  autocorrect: false,
+                  validator: (email) {
+                    if (!emailValid(email)) return 'E-mail inválido';
                     return null;
                   },
                 ),
                 TextFormField(
                   controller: passController,
                   decoration: InputDecoration(hintText: 'Senha'),
-                  autocorrect: false ,
+                  autocorrect: false,
                   obscureText: true,
-                  validator: (pass){
+                  validator: (pass) {
                     if (pass.isEmpty || pass.length < 6)
                       return 'Senha inválida';
                     return null;
                   },
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
                     padding: EdgeInsets.zero,
-                    onPressed: (){},
+                    onPressed: () {},
                     child: const Text('Esqueci minha senha'),
                   ),
-
                 ),
-                const SizedBox(height: 16,),
+                const SizedBox(
+                  height: 16,
+                ),
                 SizedBox(
                   height: 44,
-                  child: RaisedButton(onPressed: (){
-                    if(formKey.currentState.validate()){
-                      print(emailController.text);
-
-                    }
-                  },
-                  color: Theme.of(context).primaryColor,
+                  child: RaisedButton(
+                    onPressed: () {
+                      if (formKey.currentState.validate()) {
+                        context.read<UserManager>().signIn(User(
+                              email: emailController.text,
+                              password: passController.text,
+                            ));
+                      }
+                    },
+                    color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
-                  child: const Text('Entrar',
-                    style: TextStyle(fontSize: 20),
+                    child: const Text(
+                      'Entrar',
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 )
-
               ],
             ),
           ),
