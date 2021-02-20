@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dandy27_store/helpers/firebase_errors.dart';
 import 'package:dandy27_store/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,9 @@ class UserManager extends ChangeNotifier {
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseUser user;
+  final Firestore firestore = Firestore.instance;
+
+  User user;
 
   bool _loading = false;
 
@@ -22,7 +25,7 @@ class UserManager extends ChangeNotifier {
       final AuthResult result = await auth.signInWithEmailAndPassword(
           email: user.email, password: user.password);
 
-      this.user = result.user;
+      await _loadCurrentUser(firebaseUser: result.user);
 
       onSuccess();
     } on PlatformException catch (e) {
@@ -38,6 +41,7 @@ class UserManager extends ChangeNotifier {
           email: user.email, password: user.password);
 
       user.id = result.user.uid;
+      this.user = user;
 
       await user.saveData();
 
@@ -53,11 +57,15 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _loadCurrentUser() async {
-    final FirebaseUser currentUser = await auth.currentUser();
+  Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
+    final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if (currentUser != null) {
-      user = currentUser;
-      print(user.uid);
+      final DocumentSnapshot docUser =
+          await firestore.collection('users').document(currentUser.uid).get();
+      user = User.fromDocument(docUser);
+      print(user.name);
+
+      notifyListeners();
     }
   }
 }
