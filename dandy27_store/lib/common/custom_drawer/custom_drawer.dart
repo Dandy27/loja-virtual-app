@@ -1,3 +1,4 @@
+import 'package:dandy27_store/common/custom_drawer/custon_drawer_header.dart';
 import 'package:flutter/material.dart';
 
 import 'drawer_tile.dart';
@@ -8,6 +9,7 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
+          CustonDrawerHeader(),
           DrawerTile(
             iconData: Icons.home,
             title: 'Inicio',

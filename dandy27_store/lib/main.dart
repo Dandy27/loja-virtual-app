@@ -1,5 +1,6 @@
 import 'package:dandy27_store/models/user_manager.dart';
 import 'package:dandy27_store/screens/base/base_screen.dart';
+import 'package:dandy27_store/screens/base/login/login_screen.dart';
 import 'package:dandy27_store/screens/base/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => UserManager(),
+      lazy: false,
       child: MaterialApp(
         title: 'Dandy 27 Store',
         debugShowCheckedModeBanner: false,
@@ -29,6 +31,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/base',
         onGenerateRoute: (settings) {
           switch (settings.name) {
+            case '/login':
+              return MaterialPageRoute(builder: (_) => LoginScreen());
             case '/signup':
               return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/base':
