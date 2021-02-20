@@ -1,6 +1,8 @@
 import 'package:dandy27_store/helpers/validators.dart';
 import 'package:dandy27_store/models/user.dart';
+import 'package:dandy27_store/models/user_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {
 
@@ -91,7 +93,20 @@ class SignUpScreen extends StatelessWidget {
                           ));
                           return;
                         }
-                          // UserManager
+                          context.read<UserManager>().singUp(
+                            user: user,
+                            onSuccess: (){
+                              debugPrint('Sucesso');
+                              // TODO: POP
+                            },
+                            onFail: (e){
+                              scaffoldKey.currentState
+                                  .showSnackBar(SnackBar(
+                                content: Text('Falha ao cadastrar $e'),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                          );
                       };
                     },
                     color: Theme.of(context).primaryColor,
